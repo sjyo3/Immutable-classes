@@ -13,10 +13,8 @@ public final class ImmutableEmployee {              // Step 1 : Make class are f
 	{
 		this.empId = empId;
 		this.empName = empName;
-//		this.address = address;                                            // Muttable field
-		
-		
-		Address cloneaddress = new Address();                             // step 5: - to always return a clone copy of the field and never return the real object instance.
+	
+		Address cloneaddress = new Address();                         // Step 4: - when modifying the state of teh class, you must always return a new object of the class
 		cloneaddress.setLineNumber(address.getLineNumber());
 		cloneaddress.setCity(address.getCity());
 		cloneaddress.setZipcode(address.getZipcode());
@@ -32,25 +30,33 @@ public final class ImmutableEmployee {              // Step 1 : Make class are f
 		return empName;
 	}
 	
-	public Address getAddress() {
-		return address;
+	public Address getAddress() {        
+         	Address cloneaddress = new Address();
+		cloneaddress.setLineNumber(this.address.getLineNumber());
+		cloneaddress.setCity(this.address.getCity());
+		cloneaddress.setZipcode(this.address.getZipcode());
+		return cloneaddress;                                           // step 5: - to always return a clone copy of the field and never return the real object instance.
+		
+		
 	}
 	
 	
-
 public static void main(String[] args) {
 	
-	Address address = new Address();                // Step 4: - when modifying the state of teh class, you must always return a new object of the class
+	Address address = new Address();                
 	address.setLineNumber(937);
 	address.setCity("NJ");
 	address.setZipcode(12345);
 	ImmutableEmployee employee = new ImmutableEmployee(514, "sai", address);
+	System.out.println("The Employee ID & name:" +employee.getEmpId() + " "  +employee.getEmpName());
 	System.out.println("sai address linenumber before modification:" +employee.getAddress().getLineNumber());
 	System.out.println("sai address city before modification:" +employee.getAddress().getCity());
 	System.out.println("sai address zipcode before modification:" + employee.getAddress().getZipcode());
 	address.setLineNumber(723);
 	address.setCity("TX");
 	address.setZipcode(67893);
+	ImmutableEmployee employee1 =new ImmutableEmployee(513, "devi", address);
+	System.out.println("The Employee ID & name:" +employee.getEmpId() + " "  +employee.getEmpName());
 	System.out.println("sai address linenumber after modification:" +employee.getAddress().getLineNumber());
 	System.out.println("sai address city after modification:" +employee.getAddress().getCity());
 	System.out.println("sai address zipcode after modification:" + employee.getAddress(). getZipcode());
@@ -59,7 +65,6 @@ public static void main(String[] args) {
 
 
 }
-
 
 
 
